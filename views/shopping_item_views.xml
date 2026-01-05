@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View for Shopping Items -->
+    <record id="view_shopping_item_tree" model="ir.ui.view">
+        <field name="name">shopping.item.tree</field>
+        <field name="model">shopping.item</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="bought" decoration-muted="not bought">
+                <field name="name"/>
+                <field name="quantity"/>
+                <field name="uom"/>
+                <field name="category_id"/>
+                <field name="priority" widget="priority"/>
+                <field name="estimated_price"/>
+                <field name="actual_price"/>
+                <field name="bought"/>
+                <field name="store"/>
+                <field name="list_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View for Shopping Items -->
+    <record id="view_shopping_item_form" model="ir.ui.view">
+        <field name="name">shopping.item.form</field>
+        <field name="model">shopping.item</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="quantity"/>
+                            <field name="uom"/>
+                            <field name="category_id"/>
+                            <field name="priority" widget="priority"/>
+                        </group>
+                        <group>
+                            <field name="estimated_price"/>
+                            <field name="actual_price"/>
+                            <field name="bought"/>
+                            <field name="store"/>
+                            <field name="list_id"/>
+                        </group>
+                    </group>
+                    <field name="notes"/>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_shopping_item" model="ir.actions.act_window">
+        <field name="name"> Shopping items</field>
+        <field name="res_model">shopping.item</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_shopping_item" name="All items" parent="menu_shopping_list_root" action="action_shopping_item" sequence="20"/>
+</odoo>

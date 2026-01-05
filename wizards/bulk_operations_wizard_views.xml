@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bulk_operations_wizard_form" model="ir.ui.view">
+        <field name="name">shopping.bulk.operations.wizard.form</field>
+        <field name="model">shopping.bulk.operations.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Combined operations">
+                <group>
+                    <field name="operation_type" required="1"/>
+                    <field name="apply_to"/>
+                    <field name="target_list_id" attrs="{'required': [('apply_to', '=', 'list')]}"/>
+                </group>
+
+                <group string="Process settings" attrs="{'invisible': [('operation_type', 'not in', ['update_status', 'update_category', 'update_priority'])]}">
+                    <field name="new_bought_status" attrs="{'invisible': [('operation_type', '!=', 'update_status')]}"/>
+                    <field name="new_category_id" attrs="{'invisible': [('operation_type', '!=', 'update_category')]}"/>
+                    <field name="new_priority" attrs="{'invisible': [('operation_type', '!=', 'update_priority')]}"/>
+                </group>
+
+                <footer>
+                    <button name="action_execute_operation" string="Execute the process" type="object" class="btn-primary"/>
+                    <button string="Cancle" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bulk_operations_wizard" model="ir.actions.act_window">
+        <field name="name">Batch operations</field>
+        <field name="res_model">shopping.bulk.operations.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

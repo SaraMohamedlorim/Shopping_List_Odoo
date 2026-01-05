@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_shopping_category,shopping.category,model_shopping_category,,1,1,1,1
+access_shopping_item,shopping.item,model_shopping_item,,1,1,1,1
+access_shopping_list,shopping.list,model_shopping_list,,1,1,1,1
+access_shopping_budget,shopping.budget,model_shopping_budget,,1,1,1,1
+access_shopping_quick_add_wizard,shopping.quick.add.wizard,model_shopping_quick_add_wizard,,1,1,1,1
+access_shopping_import_export_wizard,shopping.import.export.wizard,model_shopping_import_export_wizard,,1,1,1,1
+access_shopping_budget_planning_wizard,shopping.budget.planning.wizard,model_shopping_budget_planning_wizard,,1,1,1,1
+access_shopping_analytics_wizard,shopping.analytics.wizard,model_shopping_analytics_wizard,,1,1,1,1
+access_shopping_bulk_operations_wizard,shopping.bulk.operations.wizard,model_shopping_bulk_operations_wizard,,1,1,1,1
+access_shopping_quick_add_items_wizard,shopping.quick.add.items.wizard,model_shopping_quick_add_items_wizard,,1,1,1,1
+access_shopping_copy_shopping_list_wizard,shopping.copy.shopping.list.wizard,model_shopping_copy_shopping_list_wizard,,1,1,1,1
+access_shopping_update_prices_wizard,shopping.update.prices.wizard,model_shopping_update_prices_wizard,,1,1,1,1
+access_shopping_budget_report_wizard,shopping.budget.report.wizard,model_shopping_budget_report_wizard,,1,1,1,1
+

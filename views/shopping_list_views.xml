@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View for Shopping Lists -->
+    <record id="view_shopping_list_tree" model="ir.ui.view">
+        <field name="name">shopping.list.tree</field>
+        <field name="model">shopping.list</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state=='completed'" decoration-warning="state=='in_progress'" decoration-danger="state=='cancelled'">
+
+                <!-- إضافة إلى شجرة وعرض قوائم التسوق -->
+                <button name="action_quick_add_wizard" string="Quick add" type="action" class="btn-primary"/>
+                <button name="action_bulk_operations_wizard" string="Combined operations" type="action" class="btn-secondary"/>
+                <button name="action_shopping_analytics_wizard" string="Reports" type="action" class="btn-info"/>
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="date_created"/>
+                <field name="state"/>
+                <field name="total_items"/>
+                <field name="completed_items"/>
+                <field name="completion_rate" widget="progressbar"/>
+                <field name="total_budget"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View for Shopping Lists -->
+    <record id="view_shopping_list_form" model="ir.ui.view">
+        <field name="name">shopping.list.form</field>
+        <field name="model">shopping.list</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_mark_in_progress" string="Start implementation" type="object" class="btn-primary" states="draft"/>
+                    <button name="action_mark_completed" string="completion" type="object" class="btn-success" states="in_progress"/>
+                    <button name="action_mark_cancelled" string="Cancle" type="object" class="btn-secondary" states="draft,in_progress"/>
+                    <button name="action_duplicate_list" string="Copy list" type="object" class="btn-info"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,completed,cancelled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="user_id"/>
+                            <field name="date_created"/>
+                        </group>
+                        <group>
+                            <field name="total_items" widget="progressbar" options="{'edit': false}"/>
+                            <field name="completed_items" widget="progressbar" options="{'edit': false}"/>
+                            <field name="completion_rate" widget="progressbar"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="total_budget"/>
+                            <field name="actual_spent"/>
+                            <field name="budget_variance"/>
+                        </group>
+                    </group>
+                    <field name="notes"/>
+                    <field name="item_ids" mode="tree,form">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="quantity"/>
+                            <field name="uom"/>
+                            <field name="category_id"/>
+                            <field name="priority" widget="priority"/>
+                            <field name="estimated_price"/>
+                            <field name="bought"/>
+                            <field name="store"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="quantity"/>
+                                    <field name="uom"/>
+                                    <field name="category_id"/>
+                                </group>
+                                <group>
+                                    <field name="priority"/>
+                                    <field name="estimated_price"/>
+                                    <field name="actual_price"/>
+                                    <field name="bought"/>
+                                    <field name="store"/>
+                                </group>
+                            </group>
+                            <field name="notes"/>
+                        </form>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_shopping_list_search" model="ir.ui.view">
+        <field name="name">shopping.list.search</field>
+        <field name="model">shopping.list</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="user_id"/>
+                <filter string="My lists" name="my_lists" domain="[('user_id','=',uid)]"/>
+                <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="In Progress" name="in_progress" domain="[('state','=','in_progress')]"/>
+                <filter string="Complated" name="completed" domain="[('state','=','completed')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="State" name="group_by_state" context="{'group_by': 'state'}"/>
+                    <filter string="User" name="group_by_user" context="{'group_by': 'user_id'}"/>
+                    <filter string="Month" name="group_by_month" context="{'group_by': 'create_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_shopping_list_kanban" model="ir.ui.view">
+        <field name="name">shopping.list.kanban</field>
+        <field name="model">shopping.list</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="completion_rate"/>
+                <field name="total_items"/>
+                <field name="completed_items"/>
+                <field name="date_created"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record">
+                            <div class="o_kanban_record_title">
+                                <field name="name"/>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <div class="progress mb-2">
+                                    <div t-attf-class="progress-bar bg-{{record.completion_rate.value == 100 ? 'success' : 'info'}}" 
+                                         t-att-style="'width: ' + record.completion_rate.value + '%;'">
+                                        <t t-esc="record.completion_rate.value"/>%
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <small>
+                                        <t t-esc="record.completed_items.value"/>/<t t-esc="record.total_items.value"/> items
+                                    </small>
+                                    <span t-attf-class="badge badge-{{record.state.value == 'completed' ? 'success' : record.state.value == 'in_progress' ? 'warning' : 'secondary'}}">
+                                        <t t-esc="record.state.value"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_shopping_list" model="ir.actions.act_window">
+        <field name="name">Shopping lists</field>
+        <field name="res_model">shopping.list</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_my_lists': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new shopping list
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="menu_shopping_list_root" name="shopping" sequence="10"/>
+    <menuitem id="menu_shopping_list" name="Shopping lists" parent="menu_shopping_list_root" action="action_shopping_list" sequence="10"/>
+</odoo>

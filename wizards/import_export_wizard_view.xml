@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_import_export_wizard_form" model="ir.ui.view">
+        <field name="name">shopping.import.export.wizard.form</field>
+        <field name="model">shopping.import.export.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Import and Export">
+                <group>
+                    <field name="operation_type" required="1"/>
+                </group>
+
+                <group string="Import settings" attrs="{'invisible': [('operation_type', '!=', 'import')]}">
+                    <field name="import_file" filename="import_filename" required="1"/>
+                    <field name="list_id" required="1"/>
+                    <field name="import_override"/>
+                </group>
+
+                <group string="Export settings" attrs="{'invisible': [('operation_type', '!=', 'export')]}">
+                    <field name="export_list_id"/>
+                    <field name="export_all_lists"/>
+                    <field name="export_include_bought"/>
+                </group>
+
+                <footer>
+                    <button name="action_execute" string="to implement" type="object" class="btn-primary"/>
+                    <button string="Cancle" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_import_export_wizard" model="ir.actions.act_window">
+        <field name="name">Import/export</field>
+        <field name="res_model">shopping.import.export.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

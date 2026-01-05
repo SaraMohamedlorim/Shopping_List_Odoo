@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_shopping_analytics_wizard_form" model="ir.ui.view">
+        <field name="name">shopping.analytics.wizard.form</field>
+        <field name="model">shopping.analytics.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Analysis Reports">
+                <group>
+                    <field name="report_type" required="1"/>
+                    <field name="date_range"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </group>
+
+                <group string="Filter options">
+                    <field name="category_id"/>
+                    <field name="user_id"/>
+                    <field name="include_bought"/>
+                    <field name="include_pending"/>
+                </group>
+
+                <group string="Report options">
+                    <field name="group_by_category"/>
+                    <field name="group_by_month"/>
+                    <field name="show_trends"/>
+                </group>
+
+                <footer>
+                    <button name="action_generate_report" string="Create report" type="object" class="btn-primary"/>
+                    <button string="Cancle" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_shopping_analytics_wizard" model="ir.actions.act_window">
+        <field name="name">Analytics reports</field>
+        <field name="res_model">shopping.analytics.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

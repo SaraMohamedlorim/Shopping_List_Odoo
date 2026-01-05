@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Security Groups -->
+        <record id="group_shopping_user" model="res.groups">
+            <field name="name">shopping user</field>
+            <field name="category_id" ref="base.module_category_usability"/>
+        </record>
+
+        <record id="group_shopping_manager" model="res.groups">
+            <field name="name">Shopping manager</field>
+            <field name="category_id" ref="base.module_category_usability"/>
+            <field name="implied_ids" eval="[(4, ref('group_shopping_user'))]"/>
+        </record>
+    </data>
+</odoo>

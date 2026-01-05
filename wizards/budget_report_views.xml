@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_budget_report_form" model="ir.ui.view">
+        <field name="name">shopping.budget.report.form</field>
+        <field name="model">shopping.budget.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Budget Report">
+                <group>
+                    <group>
+                        <field name="date_from" required="1"/>
+                        <field name="date_to" required="1"/>
+                    </group>
+                    <group>
+                        <field name="category_id"/>
+                        <field name="group_by_category"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_generate_report" string="Create report" type="object" class="btn-primary"/>
+                    <button string="Cancle" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_budget_report_result_form" model="ir.ui.view">
+        <field name="name">budget.report.result.form</field>
+        <field name="model">shopping.budget.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Budget Report Outcome">
+                <group>
+                    <field name="message" widget="html"/>
+                </group>
+                <footer>
+                    <button string="OK" class="btn-primary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_budget_report" model="ir.actions.act_window">
+        <field name="name"> Budget report</field>
+        <field name="res_model">shopping.budget.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- إضافة الزر إلى قائمة السياق -->
+    <record id="view_shopping_list_form_inherit_buttons" model="ir.ui.view">
+        <field name="name">shopping.list.form.with.actions</field>
+        <field name="model">shopping.list</field>
+        <field name="inherit_id" ref="Shopping_List.view_shopping_list_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                    
+                    <button name="action_budget_report" string="Budget Report" type="action" class="btn-primary"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

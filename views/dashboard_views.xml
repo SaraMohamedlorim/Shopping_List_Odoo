@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- استخدام عرض Kanban عادي -->
+    <record id="action_shopping_dashboard" model="ir.actions.act_window">
+        <field name="name">Shopping Dashboard</field>
+        <field name="res_model">shopping.list</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('user_id', '=', uid)]</field>
+        <field name="context">{
+            'search_default_my_lists': 1
+        }</field>
+    </record>
+
+    <menuitem 
+        id="menu_shopping_dashboard" 
+        name="Dashboard" 
+        parent="menu_shopping_list_root" 
+        action="action_shopping_dashboard" 
+        sequence="5"/>
+</odoo>

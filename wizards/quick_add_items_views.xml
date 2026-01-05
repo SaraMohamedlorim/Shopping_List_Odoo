@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_quick_add_items_form" model="ir.ui.view">
+        <field name="name">shopping.quick.add.items.form</field>
+        <field name="model">shopping.quick.add.items.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Add quick elements">
+                <group>
+                    <field name="list_id" required="1"/>
+                </group>
+                <field name="item_lines">
+                    <tree editable="bottom">
+                        <field name="name"/>
+                        <field name="quantity"/>
+                        <field name="uom"/>
+                        <field name="category_id"/>
+                        <field name="priority"/>
+                        <field name="estimated_price"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button name="action_add_items" string="Add items" type="object" class="btn-primary"/>
+                    <button string="Cancle" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_quick_add_items" model="ir.actions.act_window">
+        <field name="name">Add items quickly</field>
+        <field name="res_model">shopping.quick.add.items.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_shopping_list"/>
+    </record>
+</odoo>

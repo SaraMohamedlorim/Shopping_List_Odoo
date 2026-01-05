@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Budget Views -->
+    <record id="view_budget_tree" model="ir.ui.view">
+        <field name="name">shopping.budget.tree</field>
+        <field name="model">shopping.budget</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="remaining > 0" decoration-warning="usage_percentage > 80" decoration-danger="usage_percentage >= 100">
+                <field name="name"/>
+                <field name="period"/>
+                <field name="amount"/>
+                <field name="actual_spent"/>
+                <field name="remaining"/>
+                <field name="usage_percentage" widget="progressbar"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_budget_form" model="ir.ui.view">
+        <field name="name">shopping.budget.form</field>
+        <field name="model">shopping.budget</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="user_id"/>
+                            <field name="period"/>
+                            <field name="category_id"/>
+                        </group>
+                        <group>
+                            <field name="amount"/>
+                            <field name="actual_spent"/>
+                            <field name="remaining"/>
+                            <field name="usage_percentage" widget="progressbar"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_budget" model="ir.actions.act_window">
+        <field name="name">Shopping budgets</field>
+        <field name="res_model">shopping.budget</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_budget" name="Budget" parent="menu_shopping_list_root" action="action_budget" sequence="30"/>
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Default Categories -->
+        <record id="category_food" model="shopping.category">
+            <field name="name">Food</field>
+            <field name="color">1</field>
+        </record>
+        <record id="category_drinks" model="shopping.category">
+            <field name="name">Drinks</field>
+            <field name="color">2</field>
+        </record>
+        <record id="category_cleaning" model="shopping.category">
+            <field name="name">Cleaning Items</field>
+            <field name="color">3</field>
+        </record>
+        <record id="category_personal" model="shopping.category">
+            <field name="name">Personal care</field>
+            <field name="color">4</field>
+        </record>
+        <record id="category_other" model="shopping.category">
+            <field name="name">Others</field>
+            <field name="color">5</field>
+        </record>
+
+        <!-- Demo Shopping List -->
+        <record id="demo_shopping_list" model="shopping.list">
+            <field name="name">Weekly shopping list</field>
+            <field name="state">in_progress</field>
+        </record>
+
+        <!-- Demo Items -->
+        <record id="demo_item_1" model="shopping.item">
+            <field name="name">Bread</field>
+            <field name="quantity">2</field>
+            <field name="uom">pack</field>
+            <field name="category_id" ref="category_food"/>
+            <field name="priority">high</field>
+            <field name="estimated_price">5.0</field>
+            <field name="list_id" ref="demo_shopping_list"/>
+        </record>
+
+        <record id="demo_item_2" model="shopping.item">
+            <field name="name">Milk</field>
+            <field name="quantity">3</field>
+            <field name="uom">bottle</field>
+            <field name="category_id" ref="category_drinks"/>
+            <field name="priority">medium</field>
+            <field name="estimated_price">12.0</field>
+            <field name="list_id" ref="demo_shopping_list"/>
+        </record>
+    </data>
+</odoo>
